@@ -1,0 +1,18 @@
+<aside class="sidebar d-flex flex-column mr-50">
+
+  <a href="{{ path('app_question_form') }}" class="btn btn-primary btn-icon-primary"><i class="fa-solid fa-question mr-5"></i> <span>Poser une question</span></a>
+
+  <ul class="sidebar-nav py-20">
+    <li {% if app.request.pathinfo == path('app_home') %}class="active"{% endif %}
+    >
+      <a href="{{ path('app_home') }}"><i class="fa-solid fa-house mr-5"></i> Liste des questions</a>
+    </li>
+    <li>
+      <a href="#"><i class="fa-solid fa-pen mr-5"></i> Mes questions</a>
+    </li>
+    <li>
+      <a href="#"><i class="fa-solid fa-comment mr-5"></i> Mes réponses</a>
+    </li>
+  </ul>
+
+</aside>
