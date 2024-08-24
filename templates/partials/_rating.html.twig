@@ -1,0 +1,11 @@
+<div class="d-flex flex-column mr-20 align-items-center">
+    <a href="{{ path(from ~ '_rating', { id: id, score: 1 }) }}">
+        <i class="fa-solid fa-up-long {{ rating > 0 ? "rating-up" : "" }}"></i>
+    </a>
+    <p {% if rating > 0 %} class="rating-up text-small" {% elseif rating < 0 %} class="rating-down text-small" {% endif %}>
+        {{ rating }}
+    </p>
+    <a href="{{ path(from ~ '_rating', { id: id, score: -1 }) }}">
+        <i class="fa-solid fa-down-long {{ rating < 0 ? "rating-down" : "" }}"></i>
+    </a>
+</div>

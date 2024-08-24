@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Question;
+use App\Form\CommentType;
 use App\Form\QuestionType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,23 +37,45 @@ class QuestionController extends AbstractController
     }
 
     #[Route('/question/{id}', name: 'app_question_show')]
-    public function show(Request $request, string $id): Response
+    public function show(Request $request, Question $question, EntityManagerInterface $em): Response
     {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
 
+        $form->handleRequest($request);
 
-        $question = [
-            "title" => "Je suis une question",
-            "content" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio blanditiis molestias ipsam maiores voluptatibus, corporis nisi atque rem repellat quod, voluptate temporibus magni inventore accusamus, dolorem possimus laudantium cum consequatur.",
-            "upvote" => 20,
-            "author" => [
-                "name" => "Nathan Truc",
-                "avatar" => "https://randomuser.me/api/portraits/men/73.jpg"
-            ],
-            "nbrOfResponse" => 15
-        ];
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setCreatedAt(new \DateTimeImmutable());
+            $comment->setRating(0);
+            $comment->setQuestion($question);
+            $question->setNbrOfResponse($question->getNbrOfResponse() + 1);
+            $em->persist($comment);
+            $em->flush();
+            $this->addFlash("success", "Votre réponse a bien été ajoutée");
+            return $this->redirect($request->getUri());
+        }
 
         return $this->render('question/show.html.twig', [
-            'question' => $question,
+            "question" => $question,
+            "form" => $form->createView()
         ]);
+    }
+
+    #[Route("/question/rating/{id}/{score}", name: "question_rating")]
+    public function questionRating(Question $question, int $score, Request $request, EntityManagerInterface $em)
+    {
+        $question->setRating($question->getRating() + $score);
+        $em->flush();
+        $referer = $request->server->get("HTTP_REFERER");
+        return $referer ? $this->redirect($referer) : $this->redirectToRoute("app_home");
+    }
+
+    #[Route("/comment/rating/{id}/{score}", name: "comment_rating")]
+    public function commentRating(Comment $comment, int $score, Request $request, EntityManagerInterface $em)
+    {
+        $comment->setRating($comment->getRating() + $score);
+        $em->flush();
+        $referer = $request->server->get("HTTP_REFERER");
+        return $referer ? $this->redirect($referer) : $this->redirectToRoute("app_home");
     }
 }

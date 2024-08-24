@@ -44,6 +44,7 @@ a {
     --border-radius: 3px;
     --border: 1px solid var(--grey-light);
     --max-width: 1200px;
+    --line-height-high: 30px;
 }
 
 body {
@@ -122,6 +123,11 @@ small {
 
 .text-small {
     font-size: var(--fz-small);
+}
+
+.separator {
+    border-bottom: 1px solid var(--grey-light);
+    margin: 30px 0px;
 }
 
 /* flash */
@@ -221,6 +227,14 @@ small {
     margin-bottom: 20px;
 }
 
+.mr-auto {
+    margin-right: auto;
+}
+
+.ml-auto {
+    margin-left: auto;
+}
+
 /* padding */
 .p-5 {
     padding: 5px;
@@ -248,6 +262,10 @@ small {
 
 .pb-20 {
     padding-bottom: 20px;
+}
+
+.pb-30 {
+    padding-bottom: 30px;
 }
 
 /* flex */

@@ -1,10 +1,53 @@
 {% extends "base.html.twig" %}
 
 {% block title %} {{ question.title }} {% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset("css/question_show.css") }}">
+{% endblock %}
 
 {% block body %}
+    <div class="block">
+        <div class="d-flex">
+            {% include "partials/_rating.html.twig" with { rating: question.rating, from: "question", id: question.id } %}
+                <div class="d-flex flex-column">
+                    <div class="d-flex align-items-center pb-30">
+                        <h3 class="mr-10">{{ question.title }}</h3>
+                        <div class="question-tag">QUESTION</div>
+                        <img class="avatar ml-auto" src="https://randomuser.me/api/portraits/men/73.jpg" alt="">
+                    </div>
+                    <p class="question-text">{{ question.content }}</p>
 
-  <h1>{{ question.title }}</h1>
-  <p>{{ question.content }}</p>
+                    <div class="separator"></div>
+
+                    {% for comment in question.comments %}
+                        <div class="d-flex">
+                            {% include "partials/_rating.html.twig" with { rating: comment.rating, from: "comment", id: comment.id } %}
+                                <div class="d-flex flex-column">
+                                    <div class="d-flex align-items-center mb-20">
+                                        <img src="https://randomuser.me/api/portraits/men/51.jpg" alt="" class="avatar mr-10">
+                                        <p class="clickable">Jean Louis</p>
+                                        <small class="ml-auto">12/12/21</small>
+                                    </div>
+                                    <p class="question-response-text">{{ comment.content }}</p>
+                                </div>
+                        </div>
+                    <div class="separator"></div>
+                    {% endfor %}
+
+                    <div class="comment-form">
+                        <h3 class="mb-20">Répondre</h3>
+                        {{ form_start(form) }}
+
+                            {{ form_rest(form) }}
+
+                            <button class="btn btn--primary">Répondre</button>
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+        </div>
+
+    </div>
 
 {% endblock %}
