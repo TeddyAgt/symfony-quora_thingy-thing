@@ -27,7 +27,7 @@
                                     <div class="d-flex align-items-center mb-20">
                                         <img src="https://randomuser.me/api/portraits/men/51.jpg" alt="" class="avatar mr-10">
                                         <p class="clickable">Jean Louis</p>
-                                        <small class="ml-auto">12/12/21</small>
+                                        <small class="ml-auto">{{ comment.createdAt | ago(locale="fr") }}</small>
                                     </div>
                                     <p class="question-response-text">{{ comment.content }}</p>
                                 </div>
