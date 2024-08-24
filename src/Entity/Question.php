@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\QuestionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
 class Question
@@ -15,9 +16,13 @@ class Question
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Veuillez renseigner un titre")]
+    #[Assert\Length(min: 20, minMessage: "Le titre est trop court (min 20 caractères)", max: 255, maxMessage: "Le titre est trop long")]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: "Veuillez entrer un message")]
+    #[Assert\Length(min: 100, minMessage: "Veuillez détailler votre question")]
     private ?string $content = null;
 
     #[ORM\Column]
