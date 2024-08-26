@@ -16,6 +16,10 @@ a {
     text-decoration: none;
 }
 
+img {
+    display: block;
+}
+
 /* Theme *********************************************************/
 :root {
     /* colors */
@@ -113,6 +117,10 @@ small {
 .avatar {
     width: 25px;
     border-radius: 50%;
+}
+
+.avatar-lg {
+    width: 40px;
 }
 
 .clickable {

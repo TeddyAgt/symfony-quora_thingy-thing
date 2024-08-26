@@ -10,7 +10,8 @@
 
         {{ form_start(form) }}
             {{ form_rest(form) }}
-            <button type="submit" class="btn btn-primary">Valider</button>
+            <button type="submit" class="btn btn-primary mr-10">Valider</button>
+            <a href="{{ path("login") }}"><small>J'ai déjà un compte</small></a>
         {{ form_end(form) }}
 
     </div>
