@@ -20,7 +20,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
-    #[Assert\NotBlank("Ce champs est obligatoire")]
+    #[Assert\NotBlank(message: "Ce champs est obligatoire")]
     #[Assert\Email(message: "Veuillez rentrer une adresse email valide")]
     private ?string $email = null;
 
@@ -34,16 +34,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Assert\NotBlank("Ce champs est obligatoire")]
+    #[Assert\NotBlank(message: "Ce champs est obligatoire")]
     #[Assert\Length(min: 8, minMessage: "Le mot de passe doit faire au minimum 8 caractères")]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank("Ce champs est obligatoire")]
+    #[Assert\NotBlank(message: "Ce champs est obligatoire")]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank("Ce champs est obligatoire")]
+    #[Assert\NotBlank(message: "Ce champs est obligatoire")]
     private ?string $lastname = null;
 
     /**
@@ -59,7 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $comments;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank("Ce champs est obligatoire")]
+    #[Assert\NotBlank(message: "Ce champs est obligatoire")]
     #[Assert\Url(message: "L'URL de l'image n'est pas valide")]
     private ?string $picture = null;
 
